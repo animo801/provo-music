@@ -7,7 +7,7 @@ export default function AddShowPage() {
 
       <main className="px-8 pt-12 pb-24 max-w-[1400px] mx-auto">
         <div className="mb-10">
-          <h2 className="text-6xl font-black leading-none mb-3">Add a show</h2>
+          <h2 className="text-4xl md:text-7xl font-[900] leading-none uppercase mb-3">Add a show</h2>
           <p className="text-gray-600">Fill out the form below to submit your show for review.</p>
         </div>
 

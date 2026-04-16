@@ -15,8 +15,8 @@ const links: { href: string; label: string; page: ActivePage }[] = [
 ];
 
 function navClass(active: ActivePage | undefined, page: ActivePage) {
-  const base = "text-lg md:text-2xl transition-colors";
-  return active === page ? `${base} font-semibold underline` : `${base} hover:underline`;
+  const base = "text-sm md:text-base font-black transition-colors uppercase";
+  return active === page ? `${base} text-black` : `${base} text-gray-400 hover:text-gray-600`;
 }
 
 export default function Header({ active }: { active?: ActivePage }) {
@@ -25,7 +25,7 @@ export default function Header({ active }: { active?: ActivePage }) {
   return (
     <>
       <header className="px-4 md:px-8 py-3 md:py-6 max-w-[1400px] mx-auto flex items-center justify-between md:justify-between">
-        <Link href="/" className="text-3xl font-bold hover:underline" onClick={() => setOpen(false)}>
+        <Link href="/" className="text-3xl font-black uppercase hover:underline" onClick={() => setOpen(false)}>
           Provo Music Scene
         </Link>
 
@@ -54,7 +54,7 @@ export default function Header({ active }: { active?: ActivePage }) {
       {open && (
         <div className="fixed inset-0 z-50 bg-[#eeeeee] flex flex-col px-8 py-8 md:hidden">
           <div className="flex items-center justify-between mb-16">
-            <Link href="/" className="text-3xl font-bold" onClick={() => setOpen(false)}>
+            <Link href="/" className="text-3xl font-black uppercase" onClick={() => setOpen(false)}>
               Provo Music Scene
             </Link>
             <button

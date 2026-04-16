@@ -172,8 +172,12 @@ export default function ShowsGrid({ initialShows }: { initialShows?: Show[] }) {
 
   const allShows = entries.flatMap((e) => e.shows);
   const artistOptions = [...new Set(allShows.flatMap((s) => s.performers))].sort();
-  const venueOptions = [...new Set(allShows.map((s) => s.venue).filter(Boolean) as string[])].sort();
-  const genreOptions = [...new Set(allShows.flatMap((s) => s.genre?.split(", ") ?? []).filter(Boolean))].sort();
+  const venueOptions = [
+    ...new Set(allShows.map((s) => s.venue).filter(Boolean) as string[]),
+  ].sort();
+  const genreOptions = [
+    ...new Set(allShows.flatMap((s) => s.genre?.split(", ") ?? []).filter(Boolean)),
+  ].sort();
 
   const hasFilters = !!(artistFilter || venueFilter || genreFilter);
 
@@ -187,39 +191,16 @@ export default function ShowsGrid({ initialShows }: { initialShows?: Show[] }) {
     }),
   }));
 
-  const selectClass = "flex-1 min-w-0 border-2 border-black rounded-sm px-3 py-2 bg-[#eeeeee] text-base font-semibold focus:outline-none focus:ring-2 focus:ring-black";
+  const selectClass =
+    "flex-1 min-w-0 border-2 border-black rounded-sm px-3 py-2 bg-[#eeeeee] text-base font-black uppercase text-gray-600 focus:outline-none focus:ring-2 focus:ring-black";
 
   return (
     <div>
       {/* Sticky filters + month nav */}
-      <div className="sticky top-0 z-10 bg-[#eeeeee] border-b border-black/10">
-        {/* Filters */}
-        <div className="px-4 md:px-8 py-3 max-w-[1400px] mx-auto flex gap-3 overflow-x-auto border-b border-black/10">
-          <select className={selectClass} value={artistFilter} onChange={(e) => setArtistFilter(e.target.value)}>
-            <option value="">All artists</option>
-            {artistOptions.map((a) => <option key={a} value={a}>{a}</option>)}
-          </select>
-          <select className={selectClass} value={venueFilter} onChange={(e) => setVenueFilter(e.target.value)}>
-            <option value="">All venues</option>
-            {venueOptions.map((v) => <option key={v} value={v}>{v}</option>)}
-          </select>
-          <select className={selectClass} value={genreFilter} onChange={(e) => setGenreFilter(e.target.value)}>
-            <option value="">All genres</option>
-            {genreOptions.map((g) => <option key={g} value={g}>{g}</option>)}
-          </select>
-          {hasFilters && (
-            <button
-              onClick={() => { setArtistFilter(""); setVenueFilter(""); setGenreFilter(""); }}
-              className="text-sm font-semibold underline hover:no-underline"
-            >
-              Clear filters
-            </button>
-          )}
-        </div>
-
+      <div className="sticky top-0 z-10 bg-[#eeeeee]">
         {/* Month nav */}
-        <div className="overflow-x-auto">
-          <div className="flex gap-8 px-4 md:px-8 py-4 max-w-[1400px] mx-auto whitespace-nowrap">
+        <div className="overflow-x-auto border-b border-black/5">
+          <div className="flex gap-16 px-4 md:px-8 py-4 max-w-[1400px] mx-auto whitespace-nowrap">
             {navMonths.map((nm) => {
               const key = monthKey(nm.year, nm.month);
               const isActive = activeKey === key;
@@ -227,7 +208,7 @@ export default function ShowsGrid({ initialShows }: { initialShows?: Show[] }) {
                 <button
                   key={key}
                   onClick={() => goToMonth(nm.year, nm.month)}
-                  className={`text-xl font-bold transition-colors ${
+                  className={`text-lg font-black uppercase transition-colors ${
                     isActive ? "text-black" : "text-gray-400 hover:text-gray-600"
                   }`}
                 >
@@ -235,6 +216,62 @@ export default function ShowsGrid({ initialShows }: { initialShows?: Show[] }) {
                 </button>
               );
             })}
+          </div>
+        </div>
+
+        {/* Filters */}
+        <div className="border-b border-black/5">
+          <div className="px-4 md:px-8 py-3 max-w-[1400px] mx-auto">
+            <div className="flex gap-3 overflow-x-auto max-w-[800px]">
+              <select
+                className={selectClass}
+                value={artistFilter}
+                onChange={(e) => setArtistFilter(e.target.value)}
+              >
+                <option value="">All artists</option>
+                {artistOptions.map((a) => (
+                  <option key={a} value={a}>
+                    {a}
+                  </option>
+                ))}
+              </select>
+              <select
+                className={selectClass}
+                value={venueFilter}
+                onChange={(e) => setVenueFilter(e.target.value)}
+              >
+                <option value="">All venues</option>
+                {venueOptions.map((v) => (
+                  <option key={v} value={v}>
+                    {v}
+                  </option>
+                ))}
+              </select>
+              <select
+                className={selectClass}
+                value={genreFilter}
+                onChange={(e) => setGenreFilter(e.target.value)}
+              >
+                <option value="">All genres</option>
+                {genreOptions.map((g) => (
+                  <option key={g} value={g}>
+                    {g}
+                  </option>
+                ))}
+              </select>
+              {hasFilters && (
+                <button
+                  onClick={() => {
+                    setArtistFilter("");
+                    setVenueFilter("");
+                    setGenreFilter("");
+                  }}
+                  className="text-sm font-semibold underline hover:no-underline whitespace-nowrap"
+                >
+                  Clear filters
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -252,7 +289,7 @@ export default function ShowsGrid({ initialShows }: { initialShows?: Show[] }) {
               }}
               className="pt-12"
             >
-              <h2 className="text-2xl font-bold mb-6">
+              <h2 className="text-2xl font-black uppercase mb-6">
                 {MONTH_NAMES[entry.month - 1]} {entry.year}
               </h2>
 
@@ -279,7 +316,7 @@ export default function ShowsGrid({ initialShows }: { initialShows?: Show[] }) {
                           <p className="text-sm text-gray-800">{formatDate(show.date)}</p>
                           <span className="text-sm text-gray-800">{show.genre}</span>
                         </div>
-                        <h3 className="text-[24px] leading-none md:text-3xl font-black mb-2">
+                        <h3 className="text-[24px] leading-none md:text-3xl font-black mb-2 uppercase">
                           {show.name}
                         </h3>
                         <p className="text-sm text-gray-800 mb-6">{show.address}</p>

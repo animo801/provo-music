@@ -12,7 +12,7 @@ export default async function VenuesPage() {
 
       <main className="px-8 pt-12 pb-24 max-w-[1400px] mx-auto">
         <div className="mb-12">
-          <h2 className="text-6xl font-bold leading-none">Venues</h2>
+          <h2 className="text-4xl md:text-7xl font-[900] leading-none uppercase">Venues</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl">
