@@ -68,6 +68,9 @@ export default function ShowsGrid({ initialShows }: { initialShows?: Show[] }) {
   );
   const [loading, setLoading] = useState(false);
   const [activeKey, setActiveKey] = useState(monthKey(startYear, startMonth));
+  const [artistFilter, setArtistFilter] = useState("");
+  const [venueFilter, setVenueFilter] = useState("");
+  const [genreFilter, setGenreFilter] = useState("");
 
   const nextToLoad = useRef(hasInitial ? firstMonth : { year: startYear, month: startMonth });
   const isLoading = useRef(false);
@@ -167,32 +170,78 @@ export default function ShowsGrid({ initialShows }: { initialShows?: Show[] }) {
     }, 150);
   };
 
+  const allShows = entries.flatMap((e) => e.shows);
+  const artistOptions = [...new Set(allShows.flatMap((s) => s.performers))].sort();
+  const venueOptions = [...new Set(allShows.map((s) => s.venue).filter(Boolean) as string[])].sort();
+  const genreOptions = [...new Set(allShows.flatMap((s) => s.genre?.split(", ") ?? []).filter(Boolean))].sort();
+
+  const hasFilters = !!(artistFilter || venueFilter || genreFilter);
+
+  const filteredEntries = entries.map((entry) => ({
+    ...entry,
+    shows: entry.shows.filter((show) => {
+      if (artistFilter && !show.performers.includes(artistFilter)) return false;
+      if (venueFilter && show.venue !== venueFilter) return false;
+      if (genreFilter && !show.genre?.split(", ").includes(genreFilter)) return false;
+      return true;
+    }),
+  }));
+
+  const selectClass = "flex-1 min-w-0 border-2 border-black rounded-sm px-3 py-2 bg-[#eeeeee] text-base font-semibold focus:outline-none focus:ring-2 focus:ring-black";
+
   return (
     <div>
-      {/* Month nav */}
-      <div className="sticky top-0 z-10 bg-[#eeeeee] border-b border-black/10 overflow-x-auto">
-        <div className="flex gap-8 px-8 py-4 max-w-[1400px] mx-auto whitespace-nowrap">
-          {navMonths.map((nm) => {
-            const key = monthKey(nm.year, nm.month);
-            const isActive = activeKey === key;
-            return (
-              <button
-                key={key}
-                onClick={() => goToMonth(nm.year, nm.month)}
-                className={`text-xl font-bold transition-colors ${
-                  isActive ? "text-black" : "text-gray-400 hover:text-gray-600"
-                }`}
-              >
-                {nm.label}
-              </button>
-            );
-          })}
+      {/* Sticky filters + month nav */}
+      <div className="sticky top-0 z-10 bg-[#eeeeee] border-b border-black/10">
+        {/* Filters */}
+        <div className="px-4 md:px-8 py-3 max-w-[1400px] mx-auto flex gap-3 overflow-x-auto border-b border-black/10">
+          <select className={selectClass} value={artistFilter} onChange={(e) => setArtistFilter(e.target.value)}>
+            <option value="">All artists</option>
+            {artistOptions.map((a) => <option key={a} value={a}>{a}</option>)}
+          </select>
+          <select className={selectClass} value={venueFilter} onChange={(e) => setVenueFilter(e.target.value)}>
+            <option value="">All venues</option>
+            {venueOptions.map((v) => <option key={v} value={v}>{v}</option>)}
+          </select>
+          <select className={selectClass} value={genreFilter} onChange={(e) => setGenreFilter(e.target.value)}>
+            <option value="">All genres</option>
+            {genreOptions.map((g) => <option key={g} value={g}>{g}</option>)}
+          </select>
+          {hasFilters && (
+            <button
+              onClick={() => { setArtistFilter(""); setVenueFilter(""); setGenreFilter(""); }}
+              className="text-sm font-semibold underline hover:no-underline"
+            >
+              Clear filters
+            </button>
+          )}
+        </div>
+
+        {/* Month nav */}
+        <div className="overflow-x-auto">
+          <div className="flex gap-8 px-4 md:px-8 py-4 max-w-[1400px] mx-auto whitespace-nowrap">
+            {navMonths.map((nm) => {
+              const key = monthKey(nm.year, nm.month);
+              const isActive = activeKey === key;
+              return (
+                <button
+                  key={key}
+                  onClick={() => goToMonth(nm.year, nm.month)}
+                  className={`text-xl font-bold transition-colors ${
+                    isActive ? "text-black" : "text-gray-400 hover:text-gray-600"
+                  }`}
+                >
+                  {nm.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 
       {/* Month sections */}
-      <div className="px-8 pb-24 max-w-[1400px] mx-auto">
-        {entries.map((entry) => {
+      <div className="px-4 md:px-8 pb-24 max-w-[1400px] mx-auto">
+        {filteredEntries.map((entry) => {
           const key = monthKey(entry.year, entry.month);
           return (
             <div
