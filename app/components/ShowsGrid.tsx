@@ -55,16 +55,21 @@ type MonthEntry = { year: number; month: number; shows: Show[] };
 
 const MAX_MONTHS_AHEAD = 12;
 
-export default function ShowsGrid() {
+export default function ShowsGrid({ initialShows }: { initialShows?: Show[] }) {
   const now = new Date();
   const startYear = now.getFullYear();
   const startMonth = now.getMonth() + 1;
 
-  const [entries, setEntries] = useState<MonthEntry[]>([]);
+  const hasInitial = !!initialShows;
+  const firstMonth = advanceMonth(startYear, startMonth);
+
+  const [entries, setEntries] = useState<MonthEntry[]>(
+    hasInitial ? [{ year: startYear, month: startMonth, shows: initialShows! }] : [],
+  );
   const [loading, setLoading] = useState(false);
   const [activeKey, setActiveKey] = useState(monthKey(startYear, startMonth));
 
-  const nextToLoad = useRef({ year: startYear, month: startMonth });
+  const nextToLoad = useRef(hasInitial ? firstMonth : { year: startYear, month: startMonth });
   const isLoading = useRef(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<Map<string, HTMLDivElement>>(new Map());
@@ -95,9 +100,9 @@ export default function ShowsGrid() {
     setLoading(false);
   }, [fetchMonth, startYear, startMonth]);
 
-  // Load first month on mount
+  // Load first month on mount (skip if server-rendered initial data was provided)
   useEffect(() => {
-    loadNext();
+    if (!hasInitial) loadNext();
   }, []);
 
   // Sentinel: load next month when user nears the bottom
@@ -225,7 +230,9 @@ export default function ShowsGrid() {
                           <p className="text-sm text-gray-800">{formatDate(show.date)}</p>
                           <span className="text-sm text-gray-800">{show.genre}</span>
                         </div>
-                        <h3 className="text-3xl font-black mb-1">{show.name}</h3>
+                        <h3 className="text-[24px] leading-none md:text-3xl font-black mb-2">
+                          {show.name}
+                        </h3>
                         <p className="text-sm text-gray-800 mb-6">{show.address}</p>
                         <div className="flex gap-3 mt-auto">
                           <LearnMoreLink href={`/shows/${show.id}`} />

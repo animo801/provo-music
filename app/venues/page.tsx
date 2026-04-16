@@ -1,5 +1,5 @@
 import { fetchVenues } from "@/app/lib/notion";
-import Link from "next/link";
+import Header from "@/app/components/Header";
 
 export const revalidate = 60;
 
@@ -8,25 +8,7 @@ export default async function VenuesPage() {
 
   return (
     <div className="min-h-screen bg-[#eeeeee]">
-      <header className="flex items-center justify-between px-8 py-6 max-w-[1400px] mx-auto">
-        <Link href="/" className="text-xl font-bold hover:underline">
-          Provo Music Scene
-        </Link>
-        <nav className="flex gap-8">
-          <Link href="/venues" className="text-lg font-semibold underline">
-            Venues
-          </Link>
-          <Link href="/artists" className="text-lg hover:underline">
-            Artists
-          </Link>
-          <a href="#contact" className="text-lg hover:underline">
-            Contact
-          </a>
-          <a href="#add-band" className="text-lg hover:underline">
-            Add band
-          </a>
-        </nav>
-      </header>
+      <Header active="venues" />
 
       <main className="px-8 pt-12 pb-24 max-w-[1400px] mx-auto">
         <div className="mb-12">
