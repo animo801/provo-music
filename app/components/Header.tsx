@@ -25,7 +25,11 @@ export default function Header({ active }: { active?: ActivePage }) {
   return (
     <>
       <header className="px-4 md:px-8 py-3 md:py-6 max-w-[1400px] mx-auto flex items-center justify-between md:justify-between">
-        <Link href="/" className="text-3xl font-black uppercase hover:underline" onClick={() => setOpen(false)}>
+        <Link
+          href="/"
+          className="text-xl md:text-3xl font-black uppercase hover:underline"
+          onClick={() => setOpen(false)}
+        >
           Provo Music Scene
         </Link>
 
@@ -35,9 +39,15 @@ export default function Header({ active }: { active?: ActivePage }) {
           onClick={() => setOpen((o) => !o)}
           aria-label="Toggle menu"
         >
-          <span className={`block h-[2px] bg-black transition-all duration-200 ${open ? "rotate-45 translate-y-2" : ""}`} />
-          <span className={`block h-[2px] bg-black transition-all duration-200 ${open ? "opacity-0" : ""}`} />
-          <span className={`block h-[2px] bg-black transition-all duration-200 ${open ? "-rotate-45 -translate-y-2" : ""}`} />
+          <span
+            className={`block h-[2px] bg-black transition-all duration-200 ${open ? "rotate-45 translate-y-2" : ""}`}
+          />
+          <span
+            className={`block h-[2px] bg-black transition-all duration-200 ${open ? "opacity-0" : ""}`}
+          />
+          <span
+            className={`block h-[2px] bg-black transition-all duration-200 ${open ? "-rotate-45 -translate-y-2" : ""}`}
+          />
         </button>
 
         {/* Desktop nav */}

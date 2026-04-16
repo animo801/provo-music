@@ -15,7 +15,7 @@ export default async function Home() {
       <Header active="events" />
 
       <main>
-        <div className="px-8 py-24  max-w-[1400px] mx-auto">
+        <div className="px-4 py-24  max-w-[1400px] mx-auto">
           <h2 className="text-4xl md:text-7xl font-[900] leading-none max-w-[900px] uppercase">
             See every show in Provo in one place
           </h2>
