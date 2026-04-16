@@ -13,7 +13,7 @@ export default async function ArtistsPage() {
   const artists = await fetchArtists();
 
   return (
-    <div className="min-h-screen bg-[#E8DCC8]">
+    <div className="min-h-screen bg-[#eeeeee]">
       <header className="flex items-center justify-between px-8 py-6 max-w-[1400px] mx-auto">
         <Link href="/" className="text-xl font-bold hover:underline">
           Provo Music Scene
@@ -43,7 +43,7 @@ export default async function ArtistsPage() {
           {artists.map((artist) => (
             <div
               key={artist.id}
-              className="bg-[#E8DCC8] border-2 border-black rounded-sm overflow-hidden flex flex-col"
+              className="bg-[#eeeeee] border-2 border-black rounded-sm overflow-hidden flex flex-col"
             >
               {artist.image ? (
                 <img src={artist.image} alt={artist.name} className="w-full h-48 object-cover" />

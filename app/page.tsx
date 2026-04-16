@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#E8DCC8]">
+    <div className="min-h-screen bg-[#eeeeee]">
       <ScrollRestorer />
       <header className="flex items-center justify-between px-8 py-6 max-w-[1400px] mx-auto">
         <h1 className="text-xl font-bold">Provo Music Scene</h1>

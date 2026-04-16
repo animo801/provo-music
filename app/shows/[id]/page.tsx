@@ -1,14 +1,11 @@
 import { fetchShow } from "@/app/lib/notion";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AddressDropdown from "@/app/components/AddressDropdown";
 
 export const revalidate = 60;
 
-export default async function ShowPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function ShowPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const show = await fetchShow(id);
 
@@ -17,7 +14,7 @@ export default async function ShowPage({
   const isUrl = (str: string) => str.startsWith("http");
 
   return (
-    <div className="min-h-screen bg-[#E8DCC8]">
+    <div className="min-h-screen bg-[#eeeeee]">
       {/* Header */}
       <header className="flex items-center justify-between px-8 py-6 max-w-[1400px] mx-auto">
         <Link href="/" className="text-xl font-bold hover:underline">
@@ -40,15 +37,18 @@ export default async function ShowPage({
       </header>
 
       <main className="px-8 pt-12 pb-24 max-w-[640px] mx-auto">
-        <Link href="/" className="inline-block mb-8 text-sm font-semibold underline hover:no-underline">
+        <Link
+          href="/"
+          className="inline-block mb-8 text-sm font-semibold underline hover:no-underline"
+        >
           ← Back to list
         </Link>
 
         {/* Image */}
         {show.image ? (
-          <img src={show.image} alt={show.name} className="w-full h-72 object-cover mb-10 rounded-sm" />
+          <img src={show.image} alt={show.name} className="w-full object-cover mb-10 rounded-sm" />
         ) : (
-          <div className="w-full h-72 bg-[#C8D3DD] mb-10 rounded-sm" />
+          <div className="w-full bg-[#C8D3DD] mb-10 rounded-sm" />
         )}
 
         <div>
@@ -80,7 +80,7 @@ export default async function ShowPage({
             {show.address && (
               <div>
                 <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">Address</p>
-                <p className="font-semibold">{show.address}</p>
+                <AddressDropdown address={show.address} />
               </div>
             )}
             {show.price && (
@@ -121,7 +121,9 @@ export default async function ShowPage({
           {/* Social Media */}
           {show.socialMedia && (
             <div className="mb-8">
-              <p className="text-xs uppercase tracking-widest text-gray-500 mb-3">Follow the artists</p>
+              <p className="text-xs uppercase tracking-widest text-gray-500 mb-3">
+                Follow the artists
+              </p>
               {isUrl(show.socialMedia) ? (
                 <a
                   href={show.socialMedia}

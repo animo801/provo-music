@@ -5,8 +5,18 @@ import type { Show } from "@/app/lib/notion";
 import LearnMoreLink from "./LearnMoreLink";
 
 const MONTH_NAMES = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
 function formatDate(iso: string): string {
@@ -14,12 +24,21 @@ function formatDate(iso: string): string {
   const d = new Date(iso);
   if (iso.includes("T")) {
     return d.toLocaleString("en-US", {
-      weekday: "short", month: "short", day: "numeric", year: "numeric",
-      hour: "numeric", minute: "2-digit", timeZone: "America/Denver",
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      timeZone: "America/Denver",
     });
   }
   return d.toLocaleDateString("en-US", {
-    weekday: "short", month: "short", day: "numeric", year: "numeric", timeZone: "UTC",
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
   });
 }
 
@@ -77,15 +96,19 @@ export default function ShowsGrid() {
   }, [fetchMonth, startYear, startMonth]);
 
   // Load first month on mount
-  useEffect(() => { loadNext(); }, []);
+  useEffect(() => {
+    loadNext();
+  }, []);
 
   // Sentinel: load next month when user nears the bottom
   useEffect(() => {
     const el = sentinelRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) loadNext(); },
-      { rootMargin: "400px" }
+      ([entry]) => {
+        if (entry.isIntersecting) loadNext();
+      },
+      { rootMargin: "400px" },
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -97,8 +120,10 @@ export default function ShowsGrid() {
     const observers: IntersectionObserver[] = [];
     sectionRefs.current.forEach((el, key) => {
       const observer = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveKey(key); },
-        { rootMargin: "-30% 0px -60% 0px" }
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveKey(key);
+        },
+        { rootMargin: "-30% 0px -60% 0px" },
       );
       observer.observe(el);
       observers.push(observer);
@@ -140,7 +165,7 @@ export default function ShowsGrid() {
   return (
     <div>
       {/* Month nav */}
-      <div className="sticky top-0 z-10 bg-[#E8DCC8] border-b border-black/10 overflow-x-auto">
+      <div className="sticky top-0 z-10 bg-[#eeeeee] border-b border-black/10 overflow-x-auto">
         <div className="flex gap-8 px-8 py-4 max-w-[1400px] mx-auto whitespace-nowrap">
           {navMonths.map((nm) => {
             const key = monthKey(nm.year, nm.month);
@@ -184,20 +209,24 @@ export default function ShowsGrid() {
                   {entry.shows.map((show) => (
                     <div
                       key={show.id}
-                      className="bg-[#E8DCC8] border-2 border-black rounded-sm overflow-hidden flex flex-col"
+                      className="bg-[#eeeeee] border-2 border-black rounded-sm overflow-hidden flex flex-col"
                     >
                       {show.image ? (
-                        <img src={show.image} alt={show.name} className="w-full h-48 object-cover" />
+                        <img
+                          src={show.image}
+                          alt={show.name}
+                          className="w-full h-64 object-cover"
+                        />
                       ) : (
-                        <div className="w-full h-48 bg-[#C8D3DD]" />
+                        <div className="w-full h-64 bg-[#C8D3DD]" />
                       )}
                       <div className="p-4 flex flex-col flex-1">
                         <div className="flex items-start justify-between mb-2">
-                          <p className="text-sm text-gray-600">{formatDate(show.date)}</p>
-                          <span className="text-sm text-gray-600">{show.genre}</span>
+                          <p className="text-sm text-gray-800">{formatDate(show.date)}</p>
+                          <span className="text-sm text-gray-800">{show.genre}</span>
                         </div>
                         <h3 className="text-3xl font-black mb-1">{show.name}</h3>
-                        <p className="text-sm text-gray-600 mb-6">{show.address}</p>
+                        <p className="text-sm text-gray-800 mb-6">{show.address}</p>
                         <div className="flex gap-3 mt-auto">
                           <LearnMoreLink href={`/shows/${show.id}`} />
                         </div>
@@ -210,9 +239,7 @@ export default function ShowsGrid() {
           );
         })}
 
-        {loading && (
-          <p className="py-12 text-center text-gray-400">Loading...</p>
-        )}
+        {loading && <p className="py-12 text-center text-gray-400">Loading...</p>}
 
         <div ref={sentinelRef} />
       </div>
