@@ -131,7 +131,7 @@ function mapVenue(page: PageObjectResponse) {
     address: place(p["Place"]) || richText(p["Address"]) || null,
     instagram: url(p["Instagram"]),
     website: url(p["Website"]),
-    capacity: p["Capacity"]?.number ?? null,
+    capacity: (p["Capacity"] as { number?: number | null } | undefined)?.number ?? null,
     ages: select(p["Age"]) || null,
     image: files(p["Cover Photo"]),
   };
