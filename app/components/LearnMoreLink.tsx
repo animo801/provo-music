@@ -11,7 +11,7 @@ export default function LearnMoreLink({ href }: { href: string }) {
     <Link
       href={href}
       onClick={handleClick}
-      className="flex-1 bg-black text-white py-3 px-6 font-semibold hover:bg-gray-800 transition-colors text-center"
+      className="flex-1 bg-black text-white py-3 px-6 font-semibold hover:bg-gray-800 transition-colors text-center uppercase text-base border-b-[5px] border-r-[5px] border-white"
     >
       See details{" "}
     </Link>

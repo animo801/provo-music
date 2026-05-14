@@ -10,13 +10,13 @@ export default async function Home() {
   const initialShows = await fetchShowsByMonth(now.getFullYear(), now.getMonth() + 1);
 
   return (
-    <div className="min-h-screen bg-[#eeeeee]">
+    <div className="min-h-screen bg-[#E2F6FF]">
       <ScrollRestorer />
       <Header active="events" />
 
       <main>
         <div className="px-4 py-24  max-w-[1400px] mx-auto">
-          <h2 className="text-5xl md:text-7xl font-[900] leading-none max-w-[900px] uppercase">
+          <h2 className="text-5xl md:text-7xl font-bold font-display leading-none max-w-[900px] uppercase">
             See every show in Provo in one place
           </h2>
         </div>

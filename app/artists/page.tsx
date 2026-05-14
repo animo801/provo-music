@@ -13,19 +13,19 @@ export default async function ArtistsPage() {
   const artists = await fetchArtists();
 
   return (
-    <div className="min-h-screen bg-[#eeeeee]">
+    <div className="min-h-screen bg-[#E2F6FF]">
       <Header active="artists" />
 
       <main className="px-8 pt-12 pb-24 max-w-[1400px] mx-auto">
         <div className="mb-12">
-          <h2 className="text-4xl md:text-7xl font-[900] leading-none uppercase">Artists</h2>
+          <h2 className="text-4xl md:text-7xl font-bold font-display leading-none uppercase">Artists</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl">
           {artists.map((artist) => (
             <div
               key={artist.id}
-              className="bg-[#eeeeee] border-2 border-black rounded-sm overflow-hidden flex flex-col"
+              className="bg-[#E2F6FF] border-2 border-black rounded-sm overflow-hidden flex flex-col"
             >
               {artist.image ? (
                 <img src={artist.image} alt={artist.name} className="w-full h-48 object-cover" />

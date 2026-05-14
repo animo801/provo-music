@@ -2,12 +2,12 @@ import Header from "@/app/components/Header";
 
 export default function AddArtistPage() {
   return (
-    <div className="min-h-screen bg-[#eeeeee]">
+    <div className="min-h-screen bg-[#E2F6FF]">
       <Header />
 
       <main className="px-4 md:px-8 pt-12 pb-24 max-w-[1400px] mx-auto">
         <div className="mb-10">
-          <h2 className="text-4xl md:text-7xl font-[900] leading-none uppercase mb-3">Add an artist</h2>
+          <h2 className="text-4xl md:text-7xl font-bold font-display leading-none uppercase mb-3">Add an artist</h2>
           <p className="text-gray-600">Fill out the form below to submit an artist for review.</p>
         </div>
 

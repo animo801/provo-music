@@ -15,7 +15,7 @@ export default async function ShowPage({ params }: { params: Promise<{ id: strin
   const isUrl = (str: string) => str.startsWith("http");
 
   return (
-    <div className="min-h-screen bg-[#eeeeee]">
+    <div className="min-h-screen bg-[#E2F6FF]">
       <Header />
 
       <main className="px-8 pt-12 pb-24 max-w-[640px] mx-auto">

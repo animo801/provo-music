@@ -9,7 +9,14 @@
   --font-mono: var(--font-geist-mono);
 }
 
+@layer utilities {
+  .font-display {
+    font-family: var(--font-gelasio);
+    letter-spacing: -0.02em;
+  }
+}
+
 body {
-  background: #eeeeee;
+  background: #E2F6FF;
   color: #000000;
 }

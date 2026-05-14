@@ -192,12 +192,12 @@ export default function ShowsGrid({ initialShows }: { initialShows?: Show[] }) {
   }));
 
   const selectClass =
-    "flex-1 min-w-0 border-2 border-black rounded-sm px-3 py-2 bg-[#eeeeee] text-base font-black uppercase text-gray-600 focus:outline-none focus:ring-2 focus:ring-black";
+    "flex-1 min-w-0 border-t-2 border-l-2 border-b-[5px] border-r-[5px] border-black px-3 py-2 bg-white text-base font-bold font-display uppercase text-gray-600 focus:outline-none";
 
   return (
     <div>
       {/* Sticky filters + month nav */}
-      <div className="sticky top-0 z-10 bg-[#eeeeee]">
+      <div className="sticky top-0 z-10 bg-[#E2F6FF]">
         {/* Month nav */}
         <div className="overflow-x-auto border-b border-black/5">
           <div className="flex gap-16 px-4 md:px-8 py-4 max-w-[1400px] mx-auto whitespace-nowrap">
@@ -208,8 +208,8 @@ export default function ShowsGrid({ initialShows }: { initialShows?: Show[] }) {
                 <button
                   key={key}
                   onClick={() => goToMonth(nm.year, nm.month)}
-                  className={`text-lg font-black uppercase transition-colors ${
-                    isActive ? "text-black" : "text-gray-400 hover:text-gray-600"
+                  className={`text-lg font-bold font-display uppercase transition-colors ${
+                    isActive ? "text-black" : "text-gray-500 hover:text-gray-700"
                   }`}
                 >
                   {nm.label}
@@ -289,7 +289,7 @@ export default function ShowsGrid({ initialShows }: { initialShows?: Show[] }) {
               }}
               className="pt-12"
             >
-              <h2 className="text-2xl font-black uppercase mb-6">
+              <h2 className="text-2xl font-bold font-display uppercase mb-6">
                 {MONTH_NAMES[entry.month - 1]} {entry.year}
               </h2>
 
@@ -300,7 +300,7 @@ export default function ShowsGrid({ initialShows }: { initialShows?: Show[] }) {
                   {entry.shows.map((show) => (
                     <div
                       key={show.id}
-                      className="bg-[#eeeeee] border-2 border-black rounded-sm overflow-hidden flex flex-col"
+                      className="bg-[#E2F6FF] border-2 border-black rounded-sm overflow-hidden flex flex-col"
                     >
                       {show.image ? (
                         <img
@@ -316,7 +316,7 @@ export default function ShowsGrid({ initialShows }: { initialShows?: Show[] }) {
                           <p className="text-sm text-gray-800">{formatDate(show.date)}</p>
                           <span className="text-sm text-gray-800">{show.genre}</span>
                         </div>
-                        <h3 className="text-[24px] leading-none md:text-3xl font-black mb-2 uppercase">
+                        <h3 className="text-[24px] leading-none md:text-3xl font-bold font-display mb-2 uppercase">
                           {show.name}
                         </h3>
                         <p className="text-sm text-gray-800 mb-6">{show.address}</p>

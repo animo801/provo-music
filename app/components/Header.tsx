@@ -15,8 +15,8 @@ const links: { href: string; label: string; page: ActivePage }[] = [
 ];
 
 function navClass(active: ActivePage | undefined, page: ActivePage) {
-  const base = "text-sm md:text-base font-black transition-colors uppercase";
-  return active === page ? `${base} text-black` : `${base} text-gray-400 hover:text-gray-600`;
+  const base = "text-sm md:text-base font-bold font-display transition-colors uppercase";
+  return active === page ? `${base} text-black` : `${base} text-gray-500 hover:text-gray-700`;
 }
 
 export default function Header({ active }: { active?: ActivePage }) {
@@ -27,7 +27,7 @@ export default function Header({ active }: { active?: ActivePage }) {
       <header className="px-4 md:px-8 py-3 md:py-6 max-w-[1400px] mx-auto flex items-center justify-between md:justify-between">
         <Link
           href="/"
-          className="text-xl md:text-3xl font-black uppercase hover:underline"
+          className="text-xl md:text-3xl font-bold font-display uppercase hover:underline"
           onClick={() => setOpen(false)}
         >
           Provo Music Scene
@@ -62,9 +62,9 @@ export default function Header({ active }: { active?: ActivePage }) {
 
       {/* Full-screen mobile menu */}
       {open && (
-        <div className="fixed inset-0 z-50 bg-[#eeeeee] flex flex-col px-8 py-8 md:hidden">
+        <div className="fixed inset-0 z-50 bg-[#E2F6FF] flex flex-col px-8 py-8 md:hidden">
           <div className="flex items-center justify-between mb-16">
-            <Link href="/" className="text-3xl font-black uppercase" onClick={() => setOpen(false)}>
+            <Link href="/" className="text-3xl font-bold font-display uppercase" onClick={() => setOpen(false)}>
               Provo Music Scene
             </Link>
             <button
